@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   # signup - create account and log in user
   def create
     @user = User.new(user_params)
@@ -16,7 +15,6 @@ class UsersController < ApplicationController
     if logged_in?
       render json: current_user, status: :ok
     else
-      binding.pry
       render json: { errors: ["There is currently no user logged in."] }, status: :bad_request
     end
   end

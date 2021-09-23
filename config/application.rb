@@ -22,13 +22,14 @@ Bundler.require(*Rails.groups)
 module AuthApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    # Use SameSite=Strict for all cookies to help protect against CSRF
+    config.action_dispatch.cookies_same_site_protection = :strict
+
     config.load_defaults 6.1
     config.api_only = true
 
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
 
-    # Use SameSite=Strict for all cookies to help protect against CSRF
-    config.action_dispatch.cookies_same_site_protection = :strict
   end
 end
